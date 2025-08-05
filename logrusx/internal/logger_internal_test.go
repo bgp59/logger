@@ -1,4 +1,4 @@
-package logger_internal
+package logrusx_internal
 
 import (
 	"testing"

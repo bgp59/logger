@@ -1,22 +1,22 @@
-package logger_test
+package logrusx_test
 
 import (
 	"testing"
 
-	"github.com/bgp59/logger"
+	"github.com/bgp59/logger/logrusx"
 
-	logger_testutils "github.com/bgp59/logger/testutils"
+	logrusx_testutils "github.com/bgp59/logger/logrusx/testutils"
 )
 
-func testLogConfig(t *testing.T, cfg *logger.LoggerConfig) {
-	rootLogger := logger.NewCollectableLogger()
+func testLogConfig(t *testing.T, cfg *logrusx.LoggerConfig) {
+	rootLogger := logrusx.NewCollectableLogger()
 	err := rootLogger.SetLogger(cfg)
 	if err != nil {
 		t.Fatal(err)
 	}
 	rootLogger.AddCallerSrcPathPrefix(1)
 
-	tlc := logger_testutils.NewTestCollectableLogger(t, rootLogger, nil)
+	tlc := logrusx_testutils.NewTestCollectableLogger(t, rootLogger, nil)
 	defer tlc.RestoreLog()
 
 	log1 := rootLogger.NewCompLogger("Comp1")
@@ -34,7 +34,7 @@ func testLogConfig(t *testing.T, cfg *logger.LoggerConfig) {
 }
 
 func TestLogConfig(t *testing.T) {
-	for _, cfg := range []*logger.LoggerConfig{
+	for _, cfg := range []*logrusx.LoggerConfig{
 		{
 			UseJson: false,
 		},

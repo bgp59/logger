@@ -3,6 +3,7 @@ bin/
 buildinfo.*
 buildinfo/
 local/
+log/
 releases/
 runtime/
 staging/

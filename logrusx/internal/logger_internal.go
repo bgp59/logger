@@ -1,4 +1,4 @@
-package logger_internal
+package logrusx_internal
 
 import (
 	"fmt"
@@ -85,7 +85,6 @@ func (c *ModuleDirPathCache) setKeepNDirs(n int) {
 func (c *ModuleDirPathCache) addCallerSrcPathPrefix(upNDirs int, skip int) error {
 	skip += 1 // skip this function
 	_, file, _, ok := runtime.Caller(skip)
-	fmt.Println(file)
 	if !ok {
 		return fmt.Errorf("cannot determine source root: runtime.Caller(%d) failed", skip)
 	}

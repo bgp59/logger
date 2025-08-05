@@ -1,6 +1,6 @@
 // A logrus extension w/ file support and src file formatter
 
-package logger
+package logrusx
 
 import (
 	"io"
@@ -11,7 +11,7 @@ import (
 
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	logger_internal "github.com/bgp59/logger/internal"
+	logruxx_internal "github.com/bgp59/logger/logrusx/internal"
 )
 
 const (
@@ -37,7 +37,7 @@ type CollectableLogger struct {
 	IsEnabledForDebug bool
 
 	// Caller prettyfier:
-	prettyfier *logger_internal.CallerPrettyfier
+	prettyfier *logruxx_internal.CallerPrettyfier
 }
 
 func (logger *CollectableLogger) GetOutput() io.Writer {
@@ -82,12 +82,12 @@ func DefaultLoggerConfig() *LoggerConfig {
 }
 
 func NewCollectableLogger() *CollectableLogger {
-	prettyfier := logger_internal.NewCallerPrettyfier()
+	prettyfier := logruxx_internal.NewCallerPrettyfier()
 	return &CollectableLogger{
 		Logger: logrus.Logger{
 			Out: os.Stderr,
 			//Hooks:        make(logrus.LevelHooks),
-			Formatter:    logger_internal.NewTextFormatter(prettyfier),
+			Formatter:    logruxx_internal.NewTextFormatter(prettyfier),
 			Level:        LOGGER_DEFAULT_LEVEL,
 			ReportCaller: true,
 		},
@@ -113,9 +113,9 @@ func (logger *CollectableLogger) SetLogger(cfg *LoggerConfig) error {
 	}
 
 	if cfg.UseJson {
-		logger.SetFormatter(logger_internal.NewTextFormatter(logger.prettyfier))
+		logger.SetFormatter(logruxx_internal.NewJsonFormatter(logger.prettyfier))
 	} else {
-		logger.SetFormatter(logger_internal.NewJsonFormatter(logger.prettyfier))
+		logger.SetFormatter(logruxx_internal.NewTextFormatter(logger.prettyfier))
 	}
 
 	logger.SetReportCaller(!cfg.DisableSrcFile)
@@ -158,7 +158,7 @@ func (logger *CollectableLogger) SetLogger(cfg *LoggerConfig) error {
 }
 
 func (logger *CollectableLogger) NewCompLogger(compName string) *logrus.Entry {
-	return logger.WithField(logger_internal.LOGGER_COMPONENT_FIELD_NAME, compName)
+	return logger.WithField(logruxx_internal.LOGGER_COMPONENT_FIELD_NAME, compName)
 }
 
 // Add the prefix based on the caller's stack, going back `upNDirs` directories
