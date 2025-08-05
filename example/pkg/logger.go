@@ -1,0 +1,14 @@
+package pkg
+
+import (
+	"github.com/bgp59/logger"
+)
+
+// Create the root logger:
+var RootLogger = logger.NewCollectableLogger()
+
+// Use init to add the module's root path (2 dirs up from here) to the list of
+// prefixes to be stripped when when logging the caller's source file.
+func init() {
+	RootLogger.AddCallerSrcPathPrefix(2)
+}
