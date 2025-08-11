@@ -1,6 +1,6 @@
 # A [logrus](https://pkg.go.dev/github.com/sirupsen/logrus) Extension Module
 
-[logruxs](logrusx) provides the following additional features:
+[logrusx](logrusx) provides the following additional features:
 
 * file logging via [lumberjack](https://pkg.go.dev/gopkg.in/natefinch/lumberjack.v2)
 
