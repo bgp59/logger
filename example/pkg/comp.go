@@ -2,9 +2,11 @@ package pkg
 
 // Define a component sub-logger:
 var compLogger = RootLogger.NewCompLogger("comp")
+
+// Define a specialized logger with additional information:
 var func2Logger = compLogger.WithField("extra_info", "text")
 
-// Pretend function(s) to invoke from main tpo log some messages:
+// Pretend function(s) illustrating component logging:
 func Func1() {
 	compLogger.Error("Error")
 	compLogger.Warn("Warn")
